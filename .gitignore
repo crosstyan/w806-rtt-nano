@@ -16,3 +16,5 @@ bin-release/
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+tools/W806/projects/SDK_Project/project/CDK_WS/W806_SDK/Lst/W806.asm
+tools/W806/projects/SDK_Project/project/CDK_WS/W806_SDK/.cdk/W806_SDK.tags

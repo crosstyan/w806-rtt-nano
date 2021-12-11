@@ -94,9 +94,9 @@ rt_uint8_t *rt_hw_stack_init(void       *tentry,
     sf->r3  = 0x03030303L;                        /* r3 */
     sf->r12 = 0x12121212L;                        /* r12 */
 	sf->r13 = 0x13131313L;                        /* r12 */
-    sf->lr  = (rt_uint32_t)texit;     /* lr */
-    sf->epc = (rt_uint32_t)tentry;    /* entry point, pc */
-    sf->epsr = 0x80000140L;              /* PSR */
+    sf->lr  = (rt_uint32_t)texit;                 /* lr */
+    sf->epc = (rt_uint32_t)tentry;                /* entry point, pc */
+    sf->epsr = 0x80000140L;                       /* PSR */
 
     /* return task's current stack address */
     return stk;

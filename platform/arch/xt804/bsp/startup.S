@@ -199,7 +199,7 @@ Reset_Handler:
     jbsr    board_init
 #endif
 
-    bsr    entry
+    jbsr    entry
     .size   Reset_Handler, . - Reset_Handler
 
 __exit:
