@@ -50,7 +50,7 @@ __Vectors:
     .long   Default_Handler
     .long   Default_Handler
     .long   Default_Handler
-    .long   PendSV_Handler
+    .long   tspend_handler
     .long   Default_Handler
     .long   Default_Handler
     .long   Default_Handler

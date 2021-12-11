@@ -144,9 +144,9 @@ rts
 /******************************************************************/
 
 
-.global PendSV_Handler
-.type   PendSV_Handler, %function
-PendSV_Handler:
+.global tspend_handler
+.type   tspend_handler, %function
+tspend_handler:
 psrclr ee,ie
 ///压栈 R13-R12,R3-R0
 ipush

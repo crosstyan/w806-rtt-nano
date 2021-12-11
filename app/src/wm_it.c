@@ -45,10 +45,3 @@ __attribute__((isr)) void UART2_5_IRQHandler(void)
 		}
 	}
 }
-
-/*
-__attribute__((isr)) void PendSV_Handler(void)
-{
-	led_toggle(0);
-}
-*/
