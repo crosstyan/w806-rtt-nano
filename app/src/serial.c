@@ -273,7 +273,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART0_TX(GPIOB, GPIO_PIN_19);
 			__HAL_AFIO_REMAP_UART0_RX(GPIOB, GPIO_PIN_20);
 			
-			HAL_NVIC_SetPriority(UART0_IRQn, 0);
+			HAL_NVIC_SetPriority(UART0_IRQn, 3);
 			HAL_NVIC_EnableIRQ(UART0_IRQn);
 			break;
 		}
@@ -288,7 +288,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART1_TX(GPIOB, GPIO_PIN_6);
 			__HAL_AFIO_REMAP_UART1_RX(GPIOB, GPIO_PIN_7);
 			
-			HAL_NVIC_SetPriority(UART1_IRQn, 1);
+			HAL_NVIC_SetPriority(UART1_IRQn, 4);
 			HAL_NVIC_EnableIRQ(UART1_IRQn);
 			break;
 		}
@@ -303,7 +303,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART2_TX(GPIOA, GPIO_PIN_2);
 			__HAL_AFIO_REMAP_UART2_RX(GPIOA, GPIO_PIN_3);
 			
-			HAL_NVIC_SetPriority(UART2_5_IRQn, 2);
+			HAL_NVIC_SetPriority(UART2_5_IRQn, 5);
 			HAL_NVIC_EnableIRQ(UART2_5_IRQn);
 			break;
 		}
@@ -318,7 +318,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART3_TX(GPIOA, GPIO_PIN_5);
 			__HAL_AFIO_REMAP_UART3_RX(GPIOA, GPIO_PIN_6);
 			
-			HAL_NVIC_SetPriority(UART2_5_IRQn, 2);
+			HAL_NVIC_SetPriority(UART2_5_IRQn, 5);
 			HAL_NVIC_EnableIRQ(UART2_5_IRQn);
 			break;
 		}
@@ -333,7 +333,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART4_TX(GPIOA, GPIO_PIN_8);
 			__HAL_AFIO_REMAP_UART4_RX(GPIOA, GPIO_PIN_9);
 			
-			HAL_NVIC_SetPriority(UART2_5_IRQn, 2);
+			HAL_NVIC_SetPriority(UART2_5_IRQn, 5);
 			HAL_NVIC_EnableIRQ(UART2_5_IRQn);
 			break;
 		}
@@ -348,7 +348,7 @@ static void _uartx_gpio_init(UART_ID id)
 			__HAL_AFIO_REMAP_UART5_TX(GPIOA, GPIO_PIN_12);
 			__HAL_AFIO_REMAP_UART5_RX(GPIOA, GPIO_PIN_13);
 			
-			HAL_NVIC_SetPriority(UART2_5_IRQn, 2);
+			HAL_NVIC_SetPriority(UART2_5_IRQn, 5);
 			HAL_NVIC_EnableIRQ(UART2_5_IRQn);	
 			break;
 		}
