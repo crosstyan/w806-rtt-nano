@@ -1,7 +1,7 @@
 # W806-RTT-Nano
 
 #### 介绍
-基于联德胜微W806芯片移植RTthread-Nano
+基于联胜德微W806芯片移植RTthread-Nano
 
 #### 硬件
 
