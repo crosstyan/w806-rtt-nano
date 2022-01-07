@@ -30,6 +30,16 @@ static uart_def _uart_def_objs[UART_ID_MAX]={ UART_DEF(UART_ID_0,UART0,_uart0_tx
 										      UART_DEF(UART_ID_3,UART3,_uart3_txbuff,UART3_TX_MAX_SIZE,_uart3_rxbuff,UART3_RX_MAX_SIZE),
 										      UART_DEF(UART_ID_4,UART4,_uart4_txbuff,UART4_TX_MAX_SIZE,_uart4_rxbuff,UART4_RX_MAX_SIZE),
 										      UART_DEF(UART_ID_5,UART5,_uart5_txbuff,UART5_TX_MAX_SIZE,_uart5_rxbuff,UART5_RX_MAX_SIZE)};
+											  
+#if UART_OS_ENABLE
+#include "rtthread.h"
+	static struct rt_mutex uart_write_mutex[UART_ID_MAX];
+	#define UART_WRITE_ENTER(id)   {rt_mutex_take(&uart_write_mutex[id], RT_WAITING_FOREVER);}
+	#define UART_WRITE_RELEASE(id) {rt_mutex_release(&uart_write_mutex[id]);}
+#else
+	#define UART_WRITE_ENTER(id)   
+	#define UART_WRITE_RELEASE(id) 
+#endif
 
 static void _uartx_gpio_init(UART_ID id);
 static void _uart_hard_init(UART_ID id);
@@ -140,21 +150,28 @@ uint8_t uart_write(UART_ID id, uint8_t data)
 	StaticQueue* sq;
 	if(UART_DEF_IS_DISABLE(id) || PORT_IS_DISABLE(id)) return 0;
 	
+	UART_WRITE_ENTER(id);
 	if(id<UART_ID_MAX)
 	{
 		sq = &(_uart_def_objs[id].tx_queue);
 		static_queue_insert(sq, &data);
 	}
+	UART_WRITE_RELEASE(id);
 	return data;
 }
 
 uint32_t uart_writes(UART_ID id, uint8_t* data, uint32_t size)
 {
 	StaticQueue* sq;
+	uint32_t ret = 0;
 	if(UART_DEF_IS_DISABLE(id) || PORT_IS_DISABLE(id)) return 0;
 	
-	sq = &(_uart_def_objs[id].tx_queue);
-	return static_queue_inserts(sq, data, size);
+	UART_WRITE_ENTER(id);
+	sq = &(_uart_def_objs[id].tx_queue);	
+	ret = static_queue_inserts(sq, data, size);
+	UART_WRITE_RELEASE(id);
+	
+	return ;
 }
 
 // 串口自收发测试
@@ -431,6 +448,11 @@ static void _uart_queue_init(UART_ID id)
 	if(UART_DEF_IS_DISABLE(id)) return;
 	memset(_uart_def_objs[id].tx_queue.data, 0, _uart_def_objs[id].tx_queue.size);
 	memset(_uart_def_objs[id].rx_queue.data, 0, _uart_def_objs[id].rx_queue.size);
+#if UART_OS_ENABLE
+    char name[] = "UARTx";
+	name[4] = id%10 + '0';
+	rt_mutex_init(&uart_write_mutex[id], (const char*)name, 0);
+#endif
 }
 
 /// 将接收到的数据保存的接收队列中

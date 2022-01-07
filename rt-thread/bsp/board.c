@@ -57,11 +57,14 @@ void SysTick_Handler(void)
     rt_interrupt_leave();
 }
 
-INIT_BOARD_EXPORT(uart_init);
+//INIT_BOARD_EXPORT(uart_init);
 
 void rt_hw_console_output(const char *str)
 {
-	uart0_loop_send_str(str);
+	if(os_running())
+		uart0_send_str(str);
+	else 
+		uart0_loop_send_str(str);
 }
 
 char rt_hw_console_getchar(void)

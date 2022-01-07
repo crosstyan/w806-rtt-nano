@@ -37,7 +37,9 @@
 
 int sendchar(int ch)
 {
-    return uart_write(UART_ID_0, ch);
+  char bf[2] = {ch, 0};
+  rt_hw_console_output(bf);
+  return ch;
 }
 
 int sendchar1(int ch)

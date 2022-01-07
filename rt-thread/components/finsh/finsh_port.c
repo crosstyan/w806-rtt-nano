@@ -18,7 +18,7 @@
 
 RT_WEAK char rt_hw_console_getchar(void)
 {
-    return (char)(uart0_read_char());
+    return 0;
 }
 
 #endif /* RT_USING_FINSH */

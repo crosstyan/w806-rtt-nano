@@ -29,6 +29,9 @@
 #define UART4_ENABLE 0
 #define UART5_ENABLE 0
 
+/// OS数据安全锁
+#define UART_OS_ENABLE 1
+
 /// 串口使能配置，位定义，1使能，从低位到高位依次为：uart0，uart1...
 #define UARTS_DEF_ENABLE (UART0_ENABLE|(UART1_ENABLE<<1)|(UART2_ENABLE<<2)|(UART3_ENABLE<<3)|(UART4_ENABLE<<4)|(UART5_ENABLE<<5))
 

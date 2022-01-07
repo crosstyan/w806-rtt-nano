@@ -1,4 +1,5 @@
 #include "user.h"
+static int8_t os_is_running = 0;
 
 /// 用户板卡相关硬件、软件初始化
 void user_board_init(void)
@@ -6,6 +7,11 @@ void user_board_init(void)
 	SystemClock_Config(CPU_CLK_160M);
 	led_init();
 	uart_init();
+}
+
+int8_t os_running(void)
+{
+	return os_is_running;
 }
 
 /// led闪烁钩子函数
@@ -19,7 +25,7 @@ void led_hook(void)
 	{
 		++count;
 		sprintf(buff, "led hook: %d\n", count);
-		uart0_loop_send_str(buff);
+		uart0_send_str(buff);
 		old_time = c;
 		led_toggle(LED_ID_0);
 	}
@@ -38,7 +44,7 @@ void uart_task(void *arg)
 		{
 			++count;
 			sprintf(buff, "Uart task: %d\n", count);
-			uart0_loop_send_str(buff);
+			uart0_send_str(buff);
 			old_time = c;
 		}
 	}
@@ -61,17 +67,18 @@ void app(void)
 {
 	uint32_t count = 0;
 	char buff[32];
+	os_is_running = 1;
 	rt_thread_idle_sethook(led_hook);
 	
-	rt_thread_t uart_thread = rt_thread_create("UART_TASK", uart_task, (void*)0, 2048, RT_THREAD_PRIORITY_MAX-1, 50);		
+	rt_thread_t uart_thread = rt_thread_create("UART_PROCESS_TASK", uart_process_task, (void*)0, 2048, RT_THREAD_PRIORITY_MAX-1, 50);		
 	rt_thread_startup(uart_thread);
-	
+		
 	while(1)
 	{
 		rt_thread_delay(1000);
 		++count;
 		sprintf(buff, "Main task:%d\n", count);
-		uart0_loop_send_str(buff);
+		uart0_send_str(buff);
 	}
 }
 
